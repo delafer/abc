@@ -1,8 +1,19 @@
 import Kefir from 'kefir';
-import { Callback, LoadJson } from "./LoadJson";
-import { Entry } from "./Entry";
+import {Callback, LoadJson} from "./LoadJson";
+import {Entry} from "./Entry";
 
-alert('code executed 2');
+const s: string = '<table border="0" width="478" cellspacing="0" cellpadding="0" id="dyntbl">\n' +
+    '   <tbody>\n' +
+    '      <tr id="row1">\n' +
+    '      </tr>\n' +
+    '      <tr>\n' +
+    '         <td valign="TOP" width="476" align="center" colspan="3">\n' +
+    '         </td>\n' +
+    '      </tr>\n' +
+    '   </tbody>\n' +
+    '</table>';
+
+alert('code executed 2.1');
 
 let obj: Entry[] = [];
 let searchBox: HTMLInputElement = <HTMLInputElement>document.getElementById("searchBox");
@@ -25,19 +36,19 @@ let inputValue = Kefir
         return searchBox.value.length > 1 && last !== searchBox.value;
     })
     .map(_ => obj.filter((e: {
-        title: string ;
+        title: string;
     }) => (e.title.toLowerCase().indexOf(searchBox.value.toLowerCase()) !== -1)));
 
 
-function createTD(fragment: DocumentFragment):any {
-    let td:any = document.createElement('td');
+function createTD(fragment: DocumentFragment): any {
+    let td: any = document.createElement('td');
     td.setAttribute("valign", "TOP");
     td.setAttribute("width", "159");
     fragment.appendChild(td);
     return td;
 }
 
-inputValue.onValue((res:Entry[]) => {
+inputValue.onValue((res: Entry[]) => {
     last = searchBox.value;
     console.log('HAHAHA');
     document.getElementById("contents").hidden = (res.length > 0);
@@ -48,25 +59,23 @@ inputValue.onValue((res:Entry[]) => {
     if (chunk < 7) chunk = 7;
 
     removeElement("dyntbl");
-    addElement("mainContent",s);
+    addElement("mainContent", s);
 
     let lastCh: string;
-    let paragraph:any;
+    let paragraph: any;
     let td: any;
     let lastRow: number = 0;
     res.forEach((item: Entry, index: number) => {
+
         let hyperlink = document.createElement('a');
-
         let linkText = document.createTextNode(item.title);
-
-        let row =  Math.floor(index  / chunk) + 1;
+        let row = Math.floor(index / chunk) + 1;
 
         if (row > lastRow) {
             td = createTD(fragment);
             lastRow = row;
             lastCh = '';
         }
-
 
         let newCh = item.title.charAt(0);
         if (lastCh !== newCh) {
@@ -97,22 +106,18 @@ inputValue.onValue((res:Entry[]) => {
         createTD(fragment);
     }
 
-
     document.getElementById("row1").appendChild(fragment);
 
-    hideEvents.forEach(function (event) {
-        button.addEventListener(event, hide);
+    // hideEvents.forEach(function (event) {
+    //     button.addEventListener(event, hide);
+
+});
 
 
-    });
-
-
-
-function addElement(parentId:string, html: string) {
+function addElement(parentId: string, html: string) {
 // Adds an element to the document
     let p = document.getElementById(parentId).insertAdjacentHTML("afterbegin", html);
 }
-
 
 
 function removeElement(elementId: string) {
@@ -121,16 +126,6 @@ function removeElement(elementId: string) {
     if (element && element.parentNode) {
         element.parentNode.removeChild(element);
     }
-
 }
 
-const s : string = '<table border="0" width="478" cellspacing="0" cellpadding="0" id="dyntbl">\n' +
-    '   <tbody>\n' +
-    '      <tr id="row1">\n' +
-    '      </tr>\n' +
-    '      <tr>\n' +
-    '         <td valign="TOP" width="476" align="center" colspan="3">\n' +
-    '         </td>\n' +
-    '      </tr>\n' +
-    '   </tbody>\n' +
-    '</table>';
+
