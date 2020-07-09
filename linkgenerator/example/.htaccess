@@ -1,0 +1,7 @@
+RewriteEngine On
+
+Header always set Access-Control-Allow-Credentials true
+Header add Access-Control-Allow-Origin "*"
+Header add Access-Control-Allow-Headers "DNT,X-CustomHeader,Keep-Alive,User-Agent,origin,x-requested-with,content-type,Cache-Control,Authorization"
+Header add Access-Control-Allow-Methods "GET, OPTIONS"
+#Access-Control-Max-Age: 1728000
